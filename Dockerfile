@@ -8,10 +8,8 @@ USER root
 RUN apk add --no-cache \
     postgresql-client \
     mysql-client \
-    redis \
     curl \
     bash \
-    jq \
     tzdata
 
 # Create data directory with proper permissions
@@ -24,25 +22,17 @@ USER node
 # Set working directory
 WORKDIR /home/node
 
-# Expose n8n port
-EXPOSE 5678
+# Railway uses dynamic PORT binding
+EXPOSE ${PORT:-5678}
 
-# Health check to ensure n8n is running
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-    CMD curl -f http://localhost:5678/healthz || exit 1
-
-# Set default environment variables for Railway
+# Set environment variables for Railway
 ENV N8N_HOST=0.0.0.0 \
-    N8N_PORT=5678 \
-    N8N_PROTOCOL=https \
-    N8N_BASIC_AUTH_ACTIVE=true \
     NODE_ENV=production \
     EXECUTIONS_PROCESS=main \
     N8N_DIAGNOSTICS_ENABLED=false \
     N8N_PERSONALIZATION_ENABLED=false \
-    N8N_VERSION_NOTIFICATIONS_ENABLED=true \
-    N8N_METRICS=false \
     GENERIC_TIMEZONE=America/New_York
 
-# Start n8n
-CMD ["n8n", "start"]
+# Remove healthcheck - Railway handles this differently
+# Start n8n with Railway's PORT
+CMD n8n start --port=${PORT:-5678}
