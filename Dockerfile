@@ -12,8 +12,9 @@ RUN chmod +x /entrypoint.sh
 USER node
 
 # Set environment
-ENV N8N_HOST=0.0.0.0
 ENV NODE_ENV=production
+ENV N8N_PROTOCOL=https
+ENV EXECUTIONS_PROCESS=main
 
 # Use entrypoint
 ENTRYPOINT ["/entrypoint.sh"]

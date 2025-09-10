@@ -10,7 +10,11 @@ if [ -z "$PORT" ]; then
   export PORT=5678
 fi
 
-echo "Starting n8n on 0.0.0.0:${PORT}"
+# Set n8n environment variables
+export N8N_PORT=${PORT}
+export N8N_HOST=0.0.0.0
 
-# Start n8n with Railway's PORT
-exec n8n start --host 0.0.0.0 --port ${PORT}
+echo "Starting n8n on ${N8N_HOST}:${N8N_PORT}"
+
+# Start n8n (it will use N8N_HOST and N8N_PORT from environment)
+exec n8n
