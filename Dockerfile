@@ -1,18 +1,18 @@
-# Ultra-simple n8n for Railway
+# n8n for Railway - Based on official docs
 FROM n8nio/n8n:latest
 
 USER root
 RUN apk add --no-cache postgresql-client
 
-# Copy and setup startup script
-COPY startup.sh /startup.sh
-RUN chmod +x /startup.sh
-
 USER node
 WORKDIR /home/node
 
-# Railway provides PORT dynamically
+# Set n8n to listen on all interfaces
+ENV N8N_LISTEN_ADDRESS=0.0.0.0
+
+# Railway provides PORT dynamically - we'll override at runtime
 EXPOSE 5678
 
-# Use shell form to allow variable expansion
-CMD ["/bin/sh", "-c", "N8N_PORT=${PORT:-5678} N8N_LISTEN_ADDRESS=0.0.0.0 n8n start"]
+# Start n8n with dynamic PORT from Railway
+ENTRYPOINT ["/bin/sh", "-c"]
+CMD ["n8n start --port=${PORT:-5678}"]
