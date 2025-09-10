@@ -4,15 +4,11 @@ FROM n8nio/n8n:latest
 USER root
 RUN apk add --no-cache postgresql-client
 
-# Copy startup script
-COPY startup.sh /startup.sh
-RUN chmod +x /startup.sh
-
 USER node
 WORKDIR /home/node
 
 # Railway provides PORT
 EXPOSE ${PORT}
 
-# Use startup script for proper port binding
-CMD ["sh", "/startup.sh"]
+# n8n will use N8N_PORT and N8N_LISTEN_ADDRESS from environment
+CMD ["n8n", "start"]
