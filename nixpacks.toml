@@ -1,0 +1,5 @@
+[phases.setup]
+nixPkgs = ["nodejs-18_x"]
+
+[start]
+cmd = "N8N_PORT=$PORT N8N_HOST=0.0.0.0 n8n"
