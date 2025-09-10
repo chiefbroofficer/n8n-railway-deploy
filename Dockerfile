@@ -15,4 +15,4 @@ WORKDIR /home/node
 EXPOSE ${PORT}
 
 # Use startup script for proper port binding
-CMD ["/startup.sh"]
+CMD ["sh", "/startup.sh"]
