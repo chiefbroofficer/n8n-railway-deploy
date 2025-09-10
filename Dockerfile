@@ -1,20 +1,10 @@
 FROM n8nio/n8n:latest
 
-USER root
-
-# Install dependencies
-RUN apk add --no-cache postgresql-client
-
-# Copy entrypoint
-COPY --chown=node:node entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-USER node
-
-# Set environment
+# Railway will set PORT at runtime
+# n8n will use N8N_PORT and N8N_HOST from environment
 ENV NODE_ENV=production
 ENV N8N_PROTOCOL=https
 ENV EXECUTIONS_PROCESS=main
 
-# Use entrypoint
-ENTRYPOINT ["/entrypoint.sh"]
+# Start n8n directly
+CMD ["n8n"]
