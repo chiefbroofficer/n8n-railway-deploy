@@ -1,0 +1,39 @@
+# Copy these environment variables to Railway Dashboard → Variables tab
+# REQUIRED VARIABLES - Add these first!
+
+# Port Configuration (Railway auto-sets PORT, we use it)
+N8N_PORT=${PORT}
+
+# Database Configuration  
+DB_TYPE=postgresdb
+DB_POSTGRESDB_DATABASE=${PGDATABASE}
+DB_POSTGRESDB_HOST=${PGHOST}
+DB_POSTGRESDB_PORT=${PGPORT}
+DB_POSTGRESDB_USER=${PGUSER}
+DB_POSTGRESDB_PASSWORD=${PGPASSWORD}
+
+# Core n8n Configuration
+N8N_HOST=0.0.0.0
+N8N_PROTOCOL=https
+NODE_ENV=production
+
+# Authentication (REQUIRED for security)
+N8N_BASIC_AUTH_ACTIVE=true
+N8N_BASIC_AUTH_USER=admin
+N8N_BASIC_AUTH_PASSWORD=y6lSWQzENdlScPwK4jC4ltQ5
+
+# Encryption Key (REQUIRED for workflows)
+N8N_ENCRYPTION_KEY=xEKm2kkRfSF6N80NNLYbDc6a2cxdyz1S
+
+# Webhook URL (Update after getting Railway domain)
+WEBHOOK_URL=https://n8n-railway-deploy-production.up.railway.app
+
+# Execution Settings
+EXECUTIONS_PROCESS=main
+EXECUTIONS_MODE=regular
+
+# Optional Performance Settings
+N8N_METRICS=false
+N8N_DIAGNOSTICS_ENABLED=false
+N8N_PERSONALIZATION_ENABLED=false
+GENERIC_TIMEZONE=America/New_York
