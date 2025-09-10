@@ -11,4 +11,5 @@ WORKDIR /home/node
 EXPOSE ${PORT}
 
 # Minimal config - let environment variables handle everything
-CMD n8n start
+# Must explicitly bind to 0.0.0.0 and use Railway's PORT
+CMD ["sh", "-c", "n8n start --port=${PORT:-5678}"]
