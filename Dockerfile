@@ -7,5 +7,5 @@ ENV EXECUTIONS_PROCESS=main
 ENV N8N_HOST=0.0.0.0
 ENV WEBHOOK_URL=https://n8n-railway-deploy-production-1b25.up.railway.app/
 
-# Use shell form to allow environment variable expansion
-CMD n8n start --port ${PORT:-5678}
+# Use ENTRYPOINT with sh -c to ensure PORT is properly set
+ENTRYPOINT ["/bin/sh", "-c", "export N8N_PORT=${PORT:-5678} && echo 'Starting n8n on port' $N8N_PORT && exec n8n start"]
